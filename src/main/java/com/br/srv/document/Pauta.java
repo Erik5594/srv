@@ -17,7 +17,8 @@ public class Pauta {
     private String id;
     private String assunto;
     private Date dataCadastro;
-    private boolean votacaoAtiva;
+    private Date inicioSessao;
+    private Date fimSessao;
 
     public Pauta() {
         this.dataCadastro = new Date();
@@ -47,11 +48,19 @@ public class Pauta {
         this.dataCadastro = dataCadastro;
     }
 
-    public boolean isVotacaoAtiva() {
-        return votacaoAtiva;
+    public Date getInicioSessao() {
+        return inicioSessao;
     }
 
-    public void setVotacaoAtiva(boolean votacaoAtiva) {
-        this.votacaoAtiva = votacaoAtiva;
+    public void setInicioSessao(Date inicioSessao) {
+        this.inicioSessao = inicioSessao;
+    }
+
+    public Date getFimSessao() {
+        return fimSessao;
+    }
+
+    public void setFimSessao(Date fimSessao) {
+        this.fimSessao = fimSessao;
     }
 }

@@ -11,5 +11,6 @@ public interface PautaService {
 
     Mono<Pauta> buscarComId(String id);
     Mono<Pauta> salvar(Pauta pauta);
+    Mono<Pauta> abrirSessao(Pauta pauta, int segundos);
 
 }

@@ -46,6 +46,16 @@ public class PautaHandler {
                 .body(BodyInserters.fromPublisher(pauta.flatMap(pautaService::salvar), Pauta.class));
     }
 
+    public Mono<ServerResponse> abrirVotacao(ServerRequest request){
+        String idPauta = request.pathVariable("id");
+        String segundos = request.queryParam("segundos-aberto").orElse("0");
+
+        return pautaService.buscarComId(idPauta)
+                .flatMap(pauta -> pautaService.abrirSessao(pauta, Integer.parseInt(segundos)))
+                .flatMap(pauta -> ok().contentType(MediaType.APPLICATION_JSON).bodyValue(pauta))
+                .switchIfEmpty(notFound().build());
+    }
+
     private void validar(Pauta pauta){
         Errors errors = new BeanPropertyBindingResult(pauta, "Pauta");
         pautaValidator.validate(pauta, errors);

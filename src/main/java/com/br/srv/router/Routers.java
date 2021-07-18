@@ -26,6 +26,9 @@ public class Routers {
         ).andRoute(
                 RequestPredicates.POST("/voto")
                         .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), votoHandler::registrarVoto
+        ).andRoute(
+                RequestPredicates.PUT("/pauta/{id}/abrir-votacao")
+                        .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), pautaHandler::abrirVotacao
         );
 
     }
