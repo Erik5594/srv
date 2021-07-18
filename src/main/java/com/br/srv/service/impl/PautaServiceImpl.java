@@ -1,7 +1,8 @@
-package com.br.srv.service;
+package com.br.srv.service.impl;
 
 import com.br.srv.document.Pauta;
 import com.br.srv.repository.PautaRepository;
+import com.br.srv.service.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

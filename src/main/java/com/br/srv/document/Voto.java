@@ -3,17 +3,24 @@ package com.br.srv.document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 /**
  * @author erik_
  * Data Criacao: 17/07/2021 - 21:23
  */
 @Document
-public class Votacao {
+public class Voto {
     @Id
     private String id;
     private String idPauta;
     private String voto;
-    private String dataHora;
+    private Date dataHora;
+    private Associado associado;
+
+    public Voto() {
+        this.dataHora = new Date();
+    }
 
     public String getId() {
         return id;
@@ -39,11 +46,19 @@ public class Votacao {
         this.voto = voto;
     }
 
-    public String getDataHora() {
+    public void setDataHora(Date dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public Date getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(String dataHora) {
-        this.dataHora = dataHora;
+    public Associado getAssociado() {
+        return associado;
+    }
+
+    public void setAssociado(Associado associado) {
+        this.associado = associado;
     }
 }

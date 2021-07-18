@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.server.*;
  */
 
 @Configuration
-public class PautaRouter {
+public class Routers {
 
     @Bean
     public RouterFunction<ServerResponse> route(PautaHandler pautaHandler, VotoHandler votoHandler){
