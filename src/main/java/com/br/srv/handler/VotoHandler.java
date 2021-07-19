@@ -1,6 +1,8 @@
 package com.br.srv.handler;
 
+import com.br.srv.document.Pauta;
 import com.br.srv.document.Voto;
+import com.br.srv.service.PautaService;
 import com.br.srv.service.VotacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,20 +30,37 @@ public class VotoHandler {
     @Autowired
     private VotacaoService service;
 
+    @Autowired
+    private PautaService pautaService;
+
     @Qualifier("voto")
     @Autowired
     private Validator validador;
 
+    @Qualifier("pautaAtiva")
+    @Autowired
+    private Validator validadorPauta;
+
     public Mono<ServerResponse> registrarVoto(ServerRequest request){
         Mono<Voto> voto = request.bodyToMono(Voto.class).doOnNext(this::validar);
+        Mono<Pauta> pauta = voto.flatMap(v -> pautaService.buscarComId(v.getIdPauta())).doOnNext(this::validarPauta);
+
         return ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromPublisher(voto.flatMap(service::registrarVoto), Voto.class));
+                .body(BodyInserters.fromPublisher(voto, Voto.class));
     }
 
     private void validar(Voto voto){
         Errors errors = new BeanPropertyBindingResult(voto, "Voto");
         validador.validate(voto, errors);
+        if(errors.hasErrors()){
+            throw new ServerWebInputException(errors.toString());
+        }
+    }
+
+    private void validarPauta(Pauta pauta){
+        Errors errors = new BeanPropertyBindingResult(pauta, "Pauta");
+        validadorPauta.validate(pauta, errors);
         if(errors.hasErrors()){
             throw new ServerWebInputException(errors.toString());
         }

@@ -1,7 +1,7 @@
 package com.br.srv.validation;
 
 import com.br.srv.document.Associado;
-import com.br.srv.service.CpfService;
+import com.br.srv.service.AssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import org.springframework.validation.Validator;
 public class AssociadoValidator implements Validator {
 
     @Autowired
-    private CpfService cpfService;
+    private AssociadoService service;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -28,7 +28,7 @@ public class AssociadoValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Associado associado = (Associado) target;
-        associado.setStatus(cpfService.consultarCpf(associado.getCnpjCpf()));
+        associado.setStatus(service.consultarCpf(associado.getCnpjCpf()));
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"nome",null,
                 String.format(MensagensConst.ATRIBUTO_OBRIGATORIO, "nome"));

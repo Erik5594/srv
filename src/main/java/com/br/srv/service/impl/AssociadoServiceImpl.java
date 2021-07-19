@@ -1,7 +1,7 @@
 package com.br.srv.service.impl;
 
 import com.br.srv.document.Associado;
-import com.br.srv.service.CpfService;
+import com.br.srv.service.AssociadoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.net.URI;
  * Data Criacao: 18/07/2021 - 12:43
  */
 @Service
-public class CpfServiceImpl implements CpfService {
+public class AssociadoServiceImpl implements AssociadoService {
 
     @Override
     public String consultarCpf(String cpf) {
